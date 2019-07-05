@@ -1,12 +1,12 @@
-## Razorpay Payment Extension for Magento
+## Razorpay Payment Extension for Magento 1
 
-This extension utilizes Razorpay API and provides seamless integration with Magento, allowing payments for Indian merchants via Credit Cards, Debit Cards, Net Banking (supports 3D Secure) without redirecting away from the magento site.
+This extension utilizes Razorpay API and provides seamless integration with Magento 1, allowing payments for Indian merchants via Credit Cards, Debit Cards, Net Banking (supports 3D Secure) without redirecting away from the magento site.
 
 ### Installation
 
 Install the extension through magento connect in your account. 
 
-Once installed, it can be configured under Configuration->Payment Methods. If you run into any problems, please make sure you are using the 2.0 magento connect extension and you have Stable set as your preferred state in the magento connect settings.
+Once installed, it can be configured under Configuration->Payment Methods. If you run into any problems, please make sure you have Stable set as your preferred state in the magento connect settings.
 
 If you do not see Razorpay in your gateway list, please clear your Magento Cache from your admin
 panel (System -> Cache Management).
