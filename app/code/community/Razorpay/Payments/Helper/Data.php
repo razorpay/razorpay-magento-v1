@@ -72,19 +72,14 @@ class Razorpay_Payments_Helper_Data extends Mage_Core_Helper_Abstract
 
     protected function getExpectedRazorpayOrderData($order, $create)
     {
-        $orderCurrency = $order->getBaseCurrencyCode();
+        $orderCurrency = $order->getOrderCurrencyCode();
 
-        $orderAmount = (int) ($order->getBaseGrandTotal() * 100);
-
-        if ($orderCurrency !== Razorpay_Payments_Model_Paymentmethod::CURRENCY)
-        {
-            $orderAmount = $this->getOrderAmountInInr($orderAmount, $orderCurrency, $create);
-        }
+        $orderAmount = (int) ($order->getGrandTotal() * 100);
 
         $data = array(
             'receipt'  => $order->getRealOrderId(),
             'amount'   => $orderAmount,
-            'currency' => Razorpay_Payments_Model_Paymentmethod::CURRENCY,
+            'currency' => $orderCurrency,
         );
 
         Mage::log(array('expectedRazorpayOrderData' => $data));
@@ -181,15 +176,12 @@ class Razorpay_Payments_Helper_Data extends Mage_Core_Helper_Abstract
         $baseCurrency      = $order->getBaseCurrencyCode();
 
         $quoteCurrency     = $order->getOrderCurrencyCode();
-        $quoteAmount       = round($order->getGrandTotal(), 2);
+        $quoteAmount       = (int) ($order->getGrandTotal() * 100);
 
-        // For eg. If base currency is USD
-        if ($baseCurrency !== Razorpay_Payments_Model_Paymentmethod::CURRENCY)
-        {
-            $amount = $this->getOrderAmountInInr($amount, $baseCurrency);
-        }
 
         Mage::getSingleton('core/session')->unsetOrderAmount();
+
+        $maze_version = Mage::getVersion();
 
         $responseArray = array(
             // order id has to be stored and fetched later from the db or session
@@ -197,12 +189,14 @@ class Razorpay_Payments_Helper_Data extends Mage_Core_Helper_Abstract
             'customer_phone'    => $bA->getTelephone() ?: '',
             'order_id'          => $orderId,
             'base_amount'       => $amount,
-            'base_currency'     => Razorpay_Payments_Model_Paymentmethod::CURRENCY,
+            'base_currency'     => $baseCurrency,
             'customer_email'    => $order->getData('customer_email') ?: '',
             'quote_currency'    => $quoteCurrency,
             'quote_amount'      => $quoteAmount,
             'razorpay_order_id' => $razorpayOrderId,
-            'callback_url'      => $this->getCallbackUrl()
+            'callback_url'      => $this->getCallbackUrl(),
+            'version'           => Razorpay_Payments_Model_Paymentmethod::VERSION,
+            'maze_version'      => $maze_version
         );
 
         $order->addStatusToHistory($order->getStatus(), 'Razorpay Order ID: ' . $responseArray['razorpay_order_id']);

@@ -20,8 +20,8 @@ function RazorpayUtils(options) {
             var options = {
                 key: this.options.key_id,
                 name: this.options.merchant_name,
-                amount: this.options.base_amount,
-                currency: this.options.base_currency,
+                amount: this.options.quote_amount,
+                currency: this.options.quote_currency,
                 handler: onSuccess,
                 order_id: this.options.razorpay_order_id,
                 modal: {
@@ -30,6 +30,11 @@ function RazorpayUtils(options) {
                 notes: {
                     merchant_order_id: this.options.order_id
                 },
+                _: {
+                          integration: 'magento',
+                          integration_version: this.options.version,
+                          integration_parent_version: this.options.maze_version
+                },
                 prefill: {
                     name: this.options.customer_name,
                     contact: this.options.customer_phone,
@@ -37,13 +42,6 @@ function RazorpayUtils(options) {
                 },
                 callback_url: this.options.callback_url,
             };
-
-            if (this.options.quote_currency !== null &&
-                this.options.quote_currency !== 'INR')
-            {
-                options['display_currency'] = this.options.quote_currency;
-                options['display_amount'] = this.options.quote_amount;
-            }
 
             checkout = new Razorpay(options);
 
