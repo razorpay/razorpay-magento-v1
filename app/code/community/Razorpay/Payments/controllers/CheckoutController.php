@@ -72,6 +72,16 @@ class Razorpay_Payments_CheckoutController extends Mage_Core_Controller_Front_Ac
         }
     }
 
+    public function cancelAction()
+    {
+        // Unsetting the session variable
+        Mage::getSingleton('core/session')->unsRazorpayOrderID();
+        Mage::getSingleton("core/session")->addNotice("This order payment canceled.");
+        $this->_redirect('checkout/onepage/failure');
+
+    }
+
+
     /**
     * Return checkout quote object
     *

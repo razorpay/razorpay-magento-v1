@@ -14,7 +14,7 @@ class Razorpay_Payments_Model_Paymentmethod extends Mage_Payment_Model_Method_Ab
     /**
      * The version of this razorpay plugin
      */
-    const VERSION                       = '1.2.0';
+    const VERSION                       = '1.2.1';
 
     const KEY_ID                        = 'key_id';
     const KEY_SECRET                    = 'key_secret';

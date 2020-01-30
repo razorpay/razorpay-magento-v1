@@ -51,6 +51,11 @@ class Razorpay_Payments_Block_Checkout extends Mage_Core_Block_Template
         return Mage::getUrl('checkout/onepage/failure');
     }
 
+    public function getCancelUrl()
+    {
+        return Mage::getUrl('razorpay/checkout/cancel');
+    }
+
     public function getMagentoOrderId()
     {
         $order = $this->getOrder();

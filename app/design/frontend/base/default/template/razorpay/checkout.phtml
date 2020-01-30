@@ -11,7 +11,7 @@
     };
 
     var onDismiss = function() {
-        document.querySelector('form#razorpay').submit();
+        window.location = "<?php echo $this->getCancelUrl(); ?>";
     };
 
     if (razorpayOptions.hasOwnProperty('error') === false && razorpayOptions.error !== false)
