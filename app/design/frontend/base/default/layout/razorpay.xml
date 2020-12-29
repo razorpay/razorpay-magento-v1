@@ -1,4 +1,4 @@
-<layout version="1.2.0">
+<layout version="1.2.1">
     <razorpay_checkout_index>
         <reference name="head">
             <block type="core/text" name="razorpay.checkout">
